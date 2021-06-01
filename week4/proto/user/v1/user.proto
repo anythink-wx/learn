@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package user.service.v1;
+option go_package = "api/user/service/v1;v1";
+
+
+//用户登录
+message UserMobileLoginRequest {
+  string token = 1; //运营商token。SDK返回的运营商TOKEN，有效期：移动2分钟、电信10分钟、联通30分钟，一次有效。
+}
+
+//用户登录响应
+message UserMobileLoginResponse {
+  string clientToken = 1; //玩家的登录凭据
+  int32 expireAt = 2; //凭据的过期时间
+  string userName = 3; //玩家账号
+  string nickname = 4; //昵称
+
+  enum userGender {
+    //    option allow_alias = true;
+    UNKNOWN = 0;
+    MAN = 1;
+    FEMALE = 2;
+  }
+
+  userGender gender = 5; //性别
+  string avatar = 6; //头像
+  sint32 isFirstLogin = 7; //是否为首次登陆
+
+}
